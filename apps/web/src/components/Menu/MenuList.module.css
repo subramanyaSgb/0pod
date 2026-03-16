@@ -1,0 +1,32 @@
+.list {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 8px;
+  font-size: 13px;
+  color: var(--ipod-lcd-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: 22px;
+}
+
+.item.selected {
+  background-color: var(--ipod-lcd-highlight);
+  color: var(--ipod-lcd-highlight-text);
+}
+
+.arrow {
+  font-size: 10px;
+  opacity: 0.6;
+}
+
+.item.selected .arrow {
+  opacity: 1;
+}
