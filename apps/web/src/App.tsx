@@ -1,7 +1,19 @@
+import { IPodShell } from './components/iPod/IPodShell';
+import { LCDScreen } from './components/iPod/LCDScreen';
+import { StatusBar } from './components/StatusBar/StatusBar';
+import { MenuScreen } from './components/Menu/MenuScreen';
+import { ClickWheel } from './components/ClickWheel/ClickWheel';
+
 export function App() {
   return (
-    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
-      <p style={{ color: '#C0C0C0', fontSize: '14px' }}>0Pod loading...</p>
-    </div>
+    <IPodShell
+      screen={
+        <LCDScreen>
+          <StatusBar />
+          <MenuScreen />
+        </LCDScreen>
+      }
+      wheel={<ClickWheel />}
+    />
   );
 }
