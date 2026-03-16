@@ -1,0 +1,43 @@
+:root {
+  /* Bezel */
+  --ipod-bezel-light: #C0C0C0;
+  --ipod-bezel-dark: #A8A8A8;
+  --ipod-bezel-radius: 24px;
+  --ipod-screen-radius: 8px;
+  --ipod-screen-border: #333333;
+
+  /* LCD Screen */
+  --ipod-lcd-bg: #E8E6D9;
+  --ipod-lcd-text: #1A1A1A;
+  --ipod-lcd-highlight: #3B6EA5;
+  --ipod-lcd-highlight-text: #FFFFFF;
+  --ipod-lcd-icon: #555555;
+
+  /* Click Wheel */
+  --ipod-wheel-bg: #E8E8E8;
+  --ipod-wheel-center: #F0F0F0;
+  --ipod-wheel-label: #888888;
+  --ipod-wheel-glow: rgba(59, 130, 246, 0.15);
+
+  /* Status Bar */
+  --ipod-status-height: 20px;
+
+  /* Transitions */
+  --ipod-transition-duration: 250ms;
+  --ipod-transition-easing: ease-in-out;
+
+  /* Backlight levels */
+  --ipod-backlight-opacity: 1;
+}
+
+[data-backlight="low"] {
+  --ipod-backlight-opacity: 0.6;
+}
+
+[data-backlight="medium"] {
+  --ipod-backlight-opacity: 0.8;
+}
+
+[data-backlight="high"] {
+  --ipod-backlight-opacity: 1;
+}

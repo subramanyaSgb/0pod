@@ -1,0 +1,26 @@
+@import './ipod-theme.css';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  user-select: none;
+}
+
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #1A1A1A;
+  font-family: 'Chicago', 'Geneva', 'Helvetica Neue', Helvetica, sans-serif;
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: unset;
+}
+
+body {
+  position: fixed;
+  touch-action: none;
+  overscroll-behavior: none;
+}
