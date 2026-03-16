@@ -67,3 +67,68 @@ export interface WheelEvent {
   direction?: 'cw' | 'ccw';
   notches?: number;
 }
+
+// Player state types
+export type PlaybackState = 'idle' | 'loading' | 'playing' | 'paused' | 'error';
+export type RepeatMode = 'off' | 'all' | 'one';
+
+export interface PlayerState {
+  currentTrack: Track | null;
+  queue: Track[];
+  queueIndex: number;
+  playbackState: PlaybackState;
+  currentTime: number;
+  duration: number;
+  volume: number;
+  isShuffle: boolean;
+  repeatMode: RepeatMode;
+}
+
+// Search types
+export interface SearchResult {
+  tracks: Track[];
+  albums: Album[];
+  artists: Artist[];
+  source: ProviderName;
+}
+
+export interface Album {
+  id: string;
+  source: ProviderName;
+  title: string;
+  artist: string;
+  artworkUrl?: string;
+  year?: number;
+  trackCount?: number;
+}
+
+export interface Artist {
+  id: string;
+  source: ProviderName;
+  name: string;
+  imageUrl?: string;
+}
+
+export interface Playlist {
+  id: string;
+  source: ProviderName;
+  title: string;
+  description?: string;
+  artworkUrl?: string;
+  trackCount: number;
+  tracks?: Track[];
+}
+
+// API response types
+export interface ApiResponse<T> {
+  ok: boolean;
+  data: T;
+  source?: ProviderName;
+  cached?: boolean;
+}
+
+// Lyrics
+export interface LyricLine {
+  time: number;
+  text: string;
+}

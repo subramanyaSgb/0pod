@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pnpm turbo:*)",
+      "Bash(pnpm run:*)",
+      "Bash(node -e \"require\\(''canvas''\\)\")",
+      "Bash(pnpm lint:*)",
+      "Bash(pnpm build:*)",
+      "Bash(gh pr:*)"
+    ],
+    "additionalDirectories": [
+      "c:\\Users\\DSI-LPT-081\\Desktop\\0Pod\\docs"
+    ]
+  }
+}
