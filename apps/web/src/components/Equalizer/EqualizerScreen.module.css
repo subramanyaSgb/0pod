@@ -1,0 +1,143 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 6px 8px;
+  overflow: hidden;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2px 4px 6px;
+}
+
+.presetName {
+  font-size: 13px;
+  font-weight: bold;
+  color: var(--ipod-lcd-text);
+  text-transform: capitalize;
+}
+
+.eqStatus {
+  font-size: 10px;
+  color: var(--ipod-lcd-text);
+  opacity: 0.6;
+}
+
+.barsContainer {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  flex: 1;
+  padding: 8px 4px;
+  gap: 4px;
+}
+
+.bandColumn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  height: 100%;
+}
+
+.bandColumn.selected .barTrack {
+  border-color: var(--ipod-lcd-highlight);
+}
+
+.bandColumn.selected .bandLabel {
+  background-color: var(--ipod-lcd-highlight);
+  color: var(--ipod-lcd-highlight-text);
+  border-radius: 2px;
+  padding: 0 3px;
+}
+
+.gainLabel {
+  font-size: 9px;
+  color: var(--ipod-lcd-text);
+  opacity: 0.7;
+  margin-bottom: 4px;
+  min-height: 14px;
+  display: flex;
+  align-items: center;
+}
+
+.barTrack {
+  position: relative;
+  width: 16px;
+  flex: 1;
+  background: rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.barFillPositive {
+  position: absolute;
+  left: 0;
+  right: 0;
+  background: var(--ipod-lcd-text);
+  opacity: 0.6;
+  border-radius: 1px;
+}
+
+.barFillNegative {
+  position: absolute;
+  left: 0;
+  right: 0;
+  background: var(--ipod-lcd-text);
+  opacity: 0.35;
+  border-radius: 1px;
+}
+
+.centerLine {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1px;
+  background: var(--ipod-lcd-text);
+  opacity: 0.3;
+}
+
+.bandLabel {
+  font-size: 8px;
+  color: var(--ipod-lcd-text);
+  opacity: 0.6;
+  margin-top: 4px;
+  white-space: nowrap;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  padding: 4px 0 2px;
+}
+
+.hint {
+  font-size: 9px;
+  color: var(--ipod-lcd-text);
+  opacity: 0.5;
+  text-align: center;
+}
+
+/* LCD scanline effect for the bars area */
+.barsContainer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 1px,
+    rgba(0, 0, 0, 0.03) 1px,
+    rgba(0, 0, 0, 0.03) 2px
+  );
+  pointer-events: none;
+}
+
+.disabled {
+  opacity: 0.4;
+}

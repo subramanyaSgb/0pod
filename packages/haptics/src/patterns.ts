@@ -10,7 +10,12 @@ export type HapticPatternName =
   | 'volumeNotch'
   | 'lockToggle'
   | 'error'
-  | 'songLoaded';
+  | 'songLoaded'
+  | 'trackChange'
+  | 'volumeChange'
+  | 'seekScrub'
+  | 'errorBuzz'
+  | 'downloadComplete';
 
 export const HAPTIC_PATTERNS: Record<HapticPatternName, number[]> = {
   wheelTick: [5],
@@ -25,4 +30,10 @@ export const HAPTIC_PATTERNS: Record<HapticPatternName, number[]> = {
   lockToggle: [20, 40, 20],
   error: [100],
   songLoaded: [8, 15, 8],
+  // New patterns — short, crisp vibrations tuned for Samsung S23
+  trackChange: [8, 25, 12],
+  volumeChange: [4],
+  seekScrub: [3],
+  errorBuzz: [30, 20, 30, 20, 60],
+  downloadComplete: [10, 30, 10, 30, 20],
 } as const;

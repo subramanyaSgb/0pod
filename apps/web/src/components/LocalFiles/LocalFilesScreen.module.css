@@ -1,0 +1,55 @@
+.container {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.hiddenInput {
+  display: none;
+}
+
+.uploadItem {
+  display: flex;
+  align-items: center;
+  padding: 6px 8px;
+  font-size: 13px;
+  font-weight: bold;
+  color: var(--ipod-lcd-highlight);
+  cursor: pointer;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  font-size: 12px;
+  color: var(--ipod-lcd-text);
+  opacity: 0.5;
+}
+
+.trackItem {
+  padding: 3px 8px;
+  cursor: pointer;
+  min-height: 26px;
+}
+
+.trackItem:hover {
+  background: rgba(0, 0, 0, 0.03);
+}
+
+.trackTitle {
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--ipod-lcd-text);
+}
+
+.trackArtist {
+  font-size: 10px;
+  opacity: 0.6;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

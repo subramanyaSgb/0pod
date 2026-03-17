@@ -21,9 +21,10 @@ const menuItems: Record<string, MenuItem[]> = {
     { id: 'youtube', label: 'YouTube Music', action: 'navigate', submenuId: 'comingSoon' },
     { id: 'spotify', label: 'Spotify', action: 'navigate', submenuId: 'comingSoon' },
     { id: 'soundcloud', label: 'SoundCloud', action: 'navigate', submenuId: 'comingSoon' },
-    { id: 'localFiles', label: 'Local Files', action: 'navigate', submenuId: 'comingSoon' },
+    { id: 'localFiles', label: 'Local Files', action: 'navigate', submenuId: 'localFiles' },
   ],
   settings: [
+    { id: 'equalizer', label: 'Equalizer', action: 'navigate', submenuId: 'equalizer' },
     { id: 'haptics', label: 'Haptics', action: 'navigate', submenuId: 'settingsHaptics' },
     { id: 'display', label: 'Display', action: 'navigate', submenuId: 'settingsDisplay' },
     { id: 'about', label: 'About', action: 'navigate', submenuId: 'settingsAbout' },
@@ -63,6 +64,14 @@ const menuItems: Record<string, MenuItem[]> = {
     { id: 'dl-clear', label: 'Clear Old Downloads', action: 'execute' },
   ],
   downloadsAll: [],
+  localFiles: [],
+  equalizer: [
+    { id: 'eq-band-0', label: '60Hz', action: 'execute' },
+    { id: 'eq-band-1', label: '230Hz', action: 'execute' },
+    { id: 'eq-band-2', label: '910Hz', action: 'execute' },
+    { id: 'eq-band-3', label: '3.6kHz', action: 'execute' },
+    { id: 'eq-band-4', label: '14kHz', action: 'execute' },
+  ],
 };
 
 const MENU_TITLES: Record<string, string> = {
@@ -80,6 +89,8 @@ const MENU_TITLES: Record<string, string> = {
   downloads: 'Downloads',
   downloadsList: 'Downloads',
   downloadsAll: 'All Downloads',
+  localFiles: 'Local Files',
+  equalizer: 'Equalizer',
 };
 
 export function getMenuScreen(id: string): MenuScreen {
