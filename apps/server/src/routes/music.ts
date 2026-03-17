@@ -10,6 +10,11 @@ import {
   getSpotifyStreamUrl,
   isSpotifyConfigured,
 } from '../providers/spotify';
+import {
+  searchSoundCloud,
+  getSCTrack,
+  getSCStreamUrl,
+} from '../providers/soundcloud';
 
 export async function musicRoutes(server: FastifyInstance) {
   // Search
@@ -73,6 +78,26 @@ export async function musicRoutes(server: FastifyInstance) {
         }
       }
 
+      // SoundCloud search (always available — auto-discovers client_id)
+      try {
+        const scResult = await searchSoundCloud(q);
+        results.push({
+          tracks: scResult.tracks.map((t) => ({
+            id: t.id,
+            source: 'soundcloud' as const,
+            title: t.title,
+            artist: t.artist,
+            duration: t.duration,
+            artworkUrl: t.artworkUrl,
+          })),
+          albums: [],
+          artists: [],
+          source: 'soundcloud',
+        });
+      } catch (err) {
+        server.log.warn('SoundCloud search failed, skipping: %s', err);
+      }
+
       return { ok: true, data: results };
     } catch {
       return reply.status(500).send({ ok: false, error: 'Search failed' });
@@ -113,6 +138,21 @@ export async function musicRoutes(server: FastifyInstance) {
       }
     }
 
+    if (source === 'soundcloud') {
+      try {
+        const track = await getSCTrack(id);
+        if (!track)
+          return reply
+            .status(404)
+            .send({ ok: false, error: 'Track not found' });
+        return { ok: true, data: { ...track, source: 'soundcloud' } };
+      } catch {
+        return reply
+          .status(500)
+          .send({ ok: false, error: 'Failed to get track info' });
+      }
+    }
+
     return reply
       .status(404)
       .send({ ok: false, error: 'Source not supported yet' });
@@ -145,6 +185,21 @@ export async function musicRoutes(server: FastifyInstance) {
           return reply
             .status(404)
             .send({ ok: false, error: 'Stream not available (no preview URL)' });
+        return { ok: true, data: stream };
+      } catch {
+        return reply
+          .status(500)
+          .send({ ok: false, error: 'Failed to get stream' });
+      }
+    }
+
+    if (source === 'soundcloud') {
+      try {
+        const stream = await getSCStreamUrl(id);
+        if (!stream)
+          return reply
+            .status(404)
+            .send({ ok: false, error: 'Stream not available' });
         return { ok: true, data: stream };
       } catch {
         return reply
