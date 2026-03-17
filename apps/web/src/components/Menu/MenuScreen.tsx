@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, useCallback } from 'react';
 import type { MenuItem } from '@0pod/shared';
 import { useMenuStore } from '../../stores/menuStore';
 import { MenuList } from './MenuList';
+import { NowPlaying } from '../NowPlaying/NowPlaying';
 import styles from './MenuScreen.module.css';
 
 interface ScreenState {
@@ -72,7 +73,11 @@ export function MenuScreen() {
     <div className={styles.screenContainer}>
       {screens.map((screen, i) => (
         <div key={`${screen.id}-${i}`} className={`${styles.screenWrapper} ${screen.className}`}>
-          <MenuList items={screen.items} selectedIndex={screen.selectedIndex} />
+          {screen.id === 'nowPlaying' ? (
+            <NowPlaying />
+          ) : (
+            <MenuList items={screen.items} selectedIndex={screen.selectedIndex} />
+          )}
         </div>
       ))}
     </div>

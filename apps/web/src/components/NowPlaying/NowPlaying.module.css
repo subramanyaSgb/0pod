@@ -1,0 +1,147 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 6px 8px;
+  overflow: hidden;
+}
+
+.artworkWrapper {
+  display: flex;
+  justify-content: center;
+  padding: 4px 0;
+}
+
+.artwork {
+  width: 60%;
+  aspect-ratio: 1;
+  background: #D0CEC2;
+  border-radius: 2px;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.15);
+  overflow: hidden;
+  position: relative;
+}
+
+.artworkImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* LCD scanline overlay on artwork */
+.artwork::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 1px,
+    rgba(0,0,0,0.03) 1px,
+    rgba(0,0,0,0.03) 2px
+  );
+  pointer-events: none;
+}
+
+.trackInfo {
+  text-align: center;
+  padding: 4px 0;
+  min-height: 42px;
+}
+
+.title {
+  font-size: 13px;
+  font-weight: bold;
+  color: var(--ipod-lcd-text);
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.titleMarquee {
+  display: inline-block;
+  animation: marquee 8s linear infinite;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+.artist {
+  font-size: 11px;
+  color: var(--ipod-lcd-text);
+  opacity: 0.7;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.album {
+  font-size: 10px;
+  color: var(--ipod-lcd-text);
+  opacity: 0.5;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Progress bar */
+.progressArea {
+  margin-top: auto;
+  padding: 2px 0 4px;
+}
+
+.progressBar {
+  position: relative;
+  height: 3px;
+  background: rgba(0,0,0,0.15);
+  border-radius: 1px;
+  margin: 0 2px;
+}
+
+.progressFill {
+  height: 100%;
+  background: var(--ipod-lcd-text);
+  border-radius: 1px;
+  transition: width 0.25s linear;
+}
+
+.progressScrubber {
+  position: absolute;
+  top: 50%;
+  width: 7px;
+  height: 7px;
+  background: var(--ipod-lcd-text);
+  transform: translate(-50%, -50%) rotate(45deg);
+  /* Diamond shape */
+}
+
+.timeDisplay {
+  display: flex;
+  justify-content: space-between;
+  font-size: 9px;
+  color: var(--ipod-lcd-text);
+  opacity: 0.6;
+  padding: 2px 2px 0;
+}
+
+/* Source badge */
+.sourceBadge {
+  font-size: 8px;
+  color: var(--ipod-lcd-icon, #555);
+  text-align: center;
+  padding-top: 2px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Placeholder when no track */
+.placeholder {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: var(--ipod-lcd-text);
+  opacity: 0.5;
+}
