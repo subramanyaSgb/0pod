@@ -53,17 +53,21 @@ export async function searchYouTube(query: string): Promise<{ tracks: YTTrack[] 
           const title = flexColumns[0]?.musicResponsiveListItemFlexColumnRenderer
             ?.text?.runs?.[0]?.text || 'Unknown';
 
-          // Artist and album are in the second flex column, separated by " • "
+          // Subtitle runs: "Artist" • "Album" • "Duration"  (separated by " • ")
           const subtitleRuns = flexColumns[1]?.musicResponsiveListItemFlexColumnRenderer
             ?.text?.runs || [];
           const artist = subtitleRuns[0]?.text || 'Unknown';
-          const album = subtitleRuns.length >= 5 ? subtitleRuns[4]?.text : undefined;
 
-          // Duration is in the fixed columns
-          const fixedColumns = item.musicResponsiveListItemRenderer?.fixedColumns || [];
-          const durationText = fixedColumns[0]?.musicResponsiveListItemFixedColumnRenderer
-            ?.text?.runs?.[0]?.text || '0:00';
+          // Parse subtitle: texts separated by " • " delimiters
+          const textParts = subtitleRuns
+            .filter((_: any, i: number) => i % 2 === 0)
+            .map((r: any) => r.text);
+          // Last text part is usually the duration (e.g., "3:45")
+          const lastPart = textParts[textParts.length - 1] || '';
+          const durationText = /^\d+:\d+/.test(lastPart) ? lastPart : '0:00';
           const duration = parseDuration(durationText);
+          // Album is the second-to-last text part (if 3+ parts: artist, album, duration)
+          const album = textParts.length >= 3 ? textParts[textParts.length - 2] : undefined;
 
           // Video ID from overlay or navigation
           const videoId = item.musicResponsiveListItemRenderer?.overlay
