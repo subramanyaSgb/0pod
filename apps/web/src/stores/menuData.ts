@@ -18,7 +18,7 @@ const menuItems: Record<string, MenuItem[]> = {
     { id: 'search', label: 'Search', action: 'navigate', submenuId: 'search' },
   ],
   sources: [
-    { id: 'youtube', label: 'YouTube Music', action: 'navigate', submenuId: 'searchYoutube' },
+    { id: 'youtube', label: 'YouTube Music', action: 'navigate', submenuId: 'youtubeEmbed' },
     { id: 'spotify', label: 'Spotify', action: 'navigate', submenuId: 'searchSpotify' },
     { id: 'soundcloud', label: 'SoundCloud', action: 'navigate', submenuId: 'searchSoundcloud' },
     { id: 'localFiles', label: 'Local Files', action: 'navigate', submenuId: 'localFiles' },
@@ -47,6 +47,7 @@ const menuItems: Record<string, MenuItem[]> = {
   ],
   search: [],
   searchYoutube: [],
+  youtubeEmbed: [],
   searchSpotify: [],
   searchSoundcloud: [],
   placeholder: [
@@ -89,6 +90,7 @@ const MENU_TITLES: Record<string, string> = {
   placeholder: 'Music',
   comingSoon: 'Sources',
   searchYoutube: 'YouTube Music',
+  youtubeEmbed: 'YouTube Music',
   searchSpotify: 'Spotify',
   searchSoundcloud: 'SoundCloud',
   nowPlaying: 'Now Playing',

@@ -6,6 +6,7 @@ import { NowPlaying } from '../NowPlaying/NowPlaying';
 import { SearchScreen } from '../Search/SearchScreen';
 import { LocalFilesScreen } from '../LocalFiles/LocalFilesScreen';
 import { EqualizerScreen } from '../Equalizer/EqualizerScreen';
+import { YouTubeEmbed } from '../YouTubeEmbed/YouTubeEmbed';
 import styles from './MenuScreen.module.css';
 
 interface ScreenState {
@@ -90,6 +91,8 @@ export function MenuScreen() {
             <LocalFilesScreen />
           ) : screen.id === 'equalizer' ? (
             <EqualizerScreen />
+          ) : screen.id === 'youtubeEmbed' ? (
+            <YouTubeEmbed />
           ) : (
             <MenuList items={screen.items} selectedIndex={screen.selectedIndex} />
           )}
