@@ -1,9 +1,9 @@
 import { useRef, useCallback, useEffect } from 'react';
 import type { WheelZone } from '@0pod/shared';
 
-const NOTCH_ANGLE = Math.PI / 12; // 15 degrees
-const FRICTION = 0.92;
-const MIN_VELOCITY = 0.002;
+const NOTCH_ANGLE = Math.PI / 6; // 30 degrees — less sensitive, easier to select adjacent items
+const FRICTION = 0.85;
+const MIN_VELOCITY = 0.005;
 const TAP_THRESHOLD = Math.PI / 36; // 5 degrees
 const LONG_PRESS_MS = 800;
 
