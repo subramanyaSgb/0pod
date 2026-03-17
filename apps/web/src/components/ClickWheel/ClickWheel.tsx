@@ -52,9 +52,7 @@ export function ClickWheel() {
         case 'center': {
           play('menuSelect');
           const item = select();
-          if (item?.id === 'youtube') {
-            window.open('https://music.youtube.com', '_blank');
-          } else if (item?.id === 'spotify') {
+          if (item?.id === 'spotify') {
             window.open('https://open.spotify.com', '_blank');
           } else if (item?.id === 'soundcloud') {
             window.open('https://soundcloud.com', '_blank');

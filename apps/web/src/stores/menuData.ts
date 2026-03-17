@@ -18,7 +18,7 @@ const menuItems: Record<string, MenuItem[]> = {
     { id: 'search', label: 'Search', action: 'navigate', submenuId: 'search' },
   ],
   sources: [
-    { id: 'youtube', label: 'YouTube Music', action: 'execute' },
+    { id: 'youtube', label: 'YouTube Music', action: 'navigate', submenuId: 'youtubeEmbed' },
     { id: 'spotify', label: 'Spotify', action: 'execute' },
     { id: 'soundcloud', label: 'SoundCloud', action: 'execute' },
     { id: 'localFiles', label: 'Local Files', action: 'navigate', submenuId: 'localFiles' },

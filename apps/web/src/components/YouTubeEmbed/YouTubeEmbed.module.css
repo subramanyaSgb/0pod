@@ -1,11 +1,107 @@
 .container {
   flex: 1;
   display: flex;
+  flex-direction: column;
   overflow: hidden;
 }
 
-.iframe {
+.status {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: var(--ipod-lcd-text);
+  opacity: 0.6;
+}
+
+.list {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 8px;
+  font-size: 12px;
+  color: var(--ipod-lcd-text);
+  cursor: pointer;
+  min-height: 24px;
+}
+
+.item.selected {
+  background: var(--ipod-lcd-highlight);
+  color: var(--ipod-lcd-highlight-text);
+}
+
+.arrow {
+  font-size: 8px;
+  opacity: 0.5;
+}
+
+.resultHeader {
+  padding: 4px 8px;
+  font-size: 10px;
+  color: var(--ipod-lcd-text);
+  opacity: 0.6;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.itemTitle {
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.itemSub {
+  font-size: 10px;
+  opacity: 0.6;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.playerWrapper {
+  flex: 1;
+  min-height: 0;
+  background: #000;
+}
+
+.playerWrapper iframe {
   width: 100%;
   height: 100%;
-  border: none;
+}
+
+.trackInfo {
+  padding: 4px 8px;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.trackTitle {
+  font-size: 11px;
+  font-weight: bold;
+  color: var(--ipod-lcd-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.trackArtist {
+  font-size: 10px;
+  color: var(--ipod-lcd-text);
+  opacity: 0.6;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.hint {
+  padding: 2px 8px 4px;
+  font-size: 8px;
+  color: var(--ipod-lcd-text);
+  opacity: 0.4;
+  text-align: center;
 }
