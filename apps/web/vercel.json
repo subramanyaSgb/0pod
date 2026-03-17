@@ -1,0 +1,11 @@
+{
+  "buildCommand": "cd ../.. && npx turbo build --filter=@0pod/web",
+  "outputDirectory": "dist",
+  "installCommand": "cd ../.. && npm install -g pnpm && pnpm install",
+  "framework": null,
+  "functions": {
+    "api/**/*.ts": {
+      "maxDuration": 30
+    }
+  }
+}

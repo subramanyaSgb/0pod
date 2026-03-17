@@ -1,6 +1,6 @@
 import type { Track, Album, Artist, SearchResult, ApiResponse, Quality } from '@0pod/shared';
 
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+const API_BASE = import.meta.env.VITE_API_URL || '';
 
 async function fetchApi<T>(path: string): Promise<T> {
   const res = await fetch(`${API_BASE}${path}`);
