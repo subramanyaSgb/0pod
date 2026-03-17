@@ -24,6 +24,7 @@ const menuItems: Record<string, MenuItem[]> = {
     { id: 'localFiles', label: 'Local Files', action: 'navigate', submenuId: 'localFiles' },
   ],
   settings: [
+    { id: 'equalizer', label: 'Equalizer', action: 'navigate', submenuId: 'equalizer' },
     { id: 'haptics', label: 'Haptics', action: 'navigate', submenuId: 'settingsHaptics' },
     { id: 'display', label: 'Display', action: 'navigate', submenuId: 'settingsDisplay' },
     { id: 'about', label: 'About', action: 'navigate', submenuId: 'settingsAbout' },
@@ -64,6 +65,13 @@ const menuItems: Record<string, MenuItem[]> = {
   ],
   downloadsAll: [],
   localFiles: [],
+  equalizer: [
+    { id: 'eq-band-0', label: '60Hz', action: 'execute' },
+    { id: 'eq-band-1', label: '230Hz', action: 'execute' },
+    { id: 'eq-band-2', label: '910Hz', action: 'execute' },
+    { id: 'eq-band-3', label: '3.6kHz', action: 'execute' },
+    { id: 'eq-band-4', label: '14kHz', action: 'execute' },
+  ],
 };
 
 const MENU_TITLES: Record<string, string> = {
@@ -82,6 +90,7 @@ const MENU_TITLES: Record<string, string> = {
   downloadsList: 'Downloads',
   downloadsAll: 'All Downloads',
   localFiles: 'Local Files',
+  equalizer: 'Equalizer',
 };
 
 export function getMenuScreen(id: string): MenuScreen {
