@@ -6,7 +6,7 @@ const menuItems: Record<string, MenuItem[]> = {
     { id: 'sources', label: 'Sources', action: 'navigate', submenuId: 'sources' },
     { id: 'nowPlaying', label: 'Now Playing', action: 'navigate', submenuId: 'nowPlaying' },
     { id: 'shuffle', label: 'Shuffle Songs', action: 'execute' },
-    { id: 'downloads', label: 'Downloads', action: 'navigate', submenuId: 'downloads' },
+    { id: 'downloads', label: 'Downloads', action: 'navigate', submenuId: 'downloadsList' },
     { id: 'settings', label: 'Settings', action: 'navigate', submenuId: 'settings' },
   ],
   music: [
@@ -57,6 +57,12 @@ const menuItems: Record<string, MenuItem[]> = {
   downloads: [
     { id: 'noDownloads', label: 'No downloads yet', action: 'execute' },
   ],
+  downloadsList: [
+    { id: 'dl-all', label: 'All Downloads', action: 'navigate', submenuId: 'downloadsAll' },
+    { id: 'dl-storage', label: 'Storage Used', action: 'execute' },
+    { id: 'dl-clear', label: 'Clear Old Downloads', action: 'execute' },
+  ],
+  downloadsAll: [],
 };
 
 const MENU_TITLES: Record<string, string> = {
@@ -72,6 +78,8 @@ const MENU_TITLES: Record<string, string> = {
   comingSoon: 'Sources',
   nowPlaying: 'Now Playing',
   downloads: 'Downloads',
+  downloadsList: 'Downloads',
+  downloadsAll: 'All Downloads',
 };
 
 export function getMenuScreen(id: string): MenuScreen {

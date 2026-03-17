@@ -1,5 +1,6 @@
 import { useEffect, useRef, useCallback } from 'react';
 import { usePlayerStore } from '../stores/playerStore';
+import { useDownloadStore } from '../stores/downloadStore';
 import { api } from '../services/api';
 
 export function useAudioEngine() {
@@ -104,11 +105,21 @@ export function useAudioEngine() {
         preloadedUrlRef.current = null;
 
         const track = state.currentTrack!;
-        api
-          .getStreamUrl(track.source, track.id)
-          .then((info) => {
-            audio.src = info.url;
-            audio.load();
+
+        // Check downloads first for offline playback
+        useDownloadStore
+          .getState()
+          .getDownloadedBlob(track.id, track.source)
+          .then((blob) => {
+            if (blob) {
+              audio.src = URL.createObjectURL(blob);
+              audio.load();
+            } else {
+              return api.getStreamUrl(track.source, track.id).then((info) => {
+                audio.src = info.url;
+                audio.load();
+              });
+            }
           })
           .catch(() => {
             store.getState().setPlaybackState('error');
