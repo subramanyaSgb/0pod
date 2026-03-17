@@ -1,8 +1,8 @@
 .wheel {
   position: relative;
-  width: 70%;
+  width: 85%;
   aspect-ratio: 1;
-  max-width: 220px;
+  max-width: 280px;
   border-radius: 50%;
   background: var(--ipod-wheel-bg);
   box-shadow:
