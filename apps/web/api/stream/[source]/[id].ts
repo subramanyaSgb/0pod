@@ -1,7 +1,7 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { getStreamUrl } from '../../_providers/youtube';
-import { getSpotifyStreamUrl } from '../../_providers/spotify';
-import { getSCStreamUrl } from '../../_providers/soundcloud';
+import { getStreamUrl } from '../../providers/youtube';
+import { getSpotifyStreamUrl } from '../../providers/spotify';
+import { getSCStreamUrl } from '../../providers/soundcloud';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   res.setHeader('Access-Control-Allow-Origin', '*');
