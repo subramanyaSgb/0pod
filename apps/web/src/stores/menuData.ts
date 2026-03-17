@@ -5,7 +5,6 @@ const menuItems: Record<string, MenuItem[]> = {
     { id: 'music', label: 'Music', action: 'navigate', submenuId: 'music' },
     { id: 'nowPlaying', label: 'Now Playing', action: 'navigate', submenuId: 'nowPlaying' },
     { id: 'shuffle', label: 'Shuffle Songs', action: 'execute' },
-    { id: 'settings', label: 'Settings', action: 'navigate', submenuId: 'settings' },
   ],
   music: [
     { id: 'songs', label: 'Songs', action: 'navigate', submenuId: 'localFiles' },
