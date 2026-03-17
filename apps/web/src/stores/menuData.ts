@@ -21,7 +21,7 @@ const menuItems: Record<string, MenuItem[]> = {
     { id: 'youtube', label: 'YouTube Music', action: 'navigate', submenuId: 'comingSoon' },
     { id: 'spotify', label: 'Spotify', action: 'navigate', submenuId: 'comingSoon' },
     { id: 'soundcloud', label: 'SoundCloud', action: 'navigate', submenuId: 'comingSoon' },
-    { id: 'localFiles', label: 'Local Files', action: 'navigate', submenuId: 'comingSoon' },
+    { id: 'localFiles', label: 'Local Files', action: 'navigate', submenuId: 'localFiles' },
   ],
   settings: [
     { id: 'haptics', label: 'Haptics', action: 'navigate', submenuId: 'settingsHaptics' },
@@ -63,6 +63,7 @@ const menuItems: Record<string, MenuItem[]> = {
     { id: 'dl-clear', label: 'Clear Old Downloads', action: 'execute' },
   ],
   downloadsAll: [],
+  localFiles: [],
 };
 
 const MENU_TITLES: Record<string, string> = {
@@ -80,6 +81,7 @@ const MENU_TITLES: Record<string, string> = {
   downloads: 'Downloads',
   downloadsList: 'Downloads',
   downloadsAll: 'All Downloads',
+  localFiles: 'Local Files',
 };
 
 export function getMenuScreen(id: string): MenuScreen {

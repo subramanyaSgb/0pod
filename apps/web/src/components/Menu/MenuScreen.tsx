@@ -4,6 +4,7 @@ import { useMenuStore } from '../../stores/menuStore';
 import { MenuList } from './MenuList';
 import { NowPlaying } from '../NowPlaying/NowPlaying';
 import { SearchScreen } from '../Search/SearchScreen';
+import { LocalFilesScreen } from '../LocalFiles/LocalFilesScreen';
 import styles from './MenuScreen.module.css';
 
 interface ScreenState {
@@ -78,6 +79,8 @@ export function MenuScreen() {
             <NowPlaying />
           ) : screen.id === 'search' ? (
             <SearchScreen />
+          ) : screen.id === 'localFiles' ? (
+            <LocalFilesScreen />
           ) : (
             <MenuList items={screen.items} selectedIndex={screen.selectedIndex} />
           )}

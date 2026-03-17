@@ -1,6 +1,7 @@
 import { useEffect, useRef, useCallback } from 'react';
 import { usePlayerStore } from '../stores/playerStore';
 import { useDownloadStore } from '../stores/downloadStore';
+import { useLocalFilesStore } from '../stores/localFilesStore';
 import { api } from '../services/api';
 
 export function useAudioEngine() {
@@ -106,7 +107,26 @@ export function useAudioEngine() {
 
         const track = state.currentTrack!;
 
-        // Check downloads first for offline playback
+        // Check local files first
+        if (track.source === 'local') {
+          useLocalFilesStore
+            .getState()
+            .getBlob(track.id)
+            .then((blob) => {
+              if (blob) {
+                audio.src = URL.createObjectURL(blob);
+                audio.load();
+              } else {
+                store.getState().setPlaybackState('error');
+              }
+            })
+            .catch(() => {
+              store.getState().setPlaybackState('error');
+            });
+          return;
+        }
+
+        // Check downloads for offline playback
         useDownloadStore
           .getState()
           .getDownloadedBlob(track.id, track.source)
