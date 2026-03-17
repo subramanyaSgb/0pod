@@ -18,7 +18,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   try {
     if (allowedSources.includes('youtube')) {
       try {
-        const { searchYouTube } = await import('./providers/youtube');
+        const { searchYouTube } = await import('../lib/youtube');
         const ytResult = await searchYouTube(q);
         results.push({
           tracks: ytResult.tracks.map((t) => ({
@@ -35,7 +35,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     if (allowedSources.includes('spotify')) {
       try {
-        const { searchSpotify, isSpotifyConfigured } = await import('./providers/spotify');
+        const { searchSpotify, isSpotifyConfigured } = await import('../lib/spotify');
         if (isSpotifyConfigured()) {
           const spResult = await searchSpotify(q);
           results.push({
@@ -54,7 +54,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     if (allowedSources.includes('soundcloud')) {
       try {
-        const { searchSoundCloud } = await import('./providers/soundcloud');
+        const { searchSoundCloud } = await import('../lib/soundcloud');
         const scResult = await searchSoundCloud(q);
         results.push({
           tracks: scResult.tracks.map((t) => ({
