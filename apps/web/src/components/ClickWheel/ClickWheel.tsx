@@ -49,11 +49,19 @@ export function ClickWheel() {
       }
 
       switch (zone) {
-        case 'center':
+        case 'center': {
           play('menuSelect');
-          select();
+          const item = select();
+          if (item?.id === 'youtube') {
+            window.open('https://music.youtube.com', '_blank');
+          } else if (item?.id === 'spotify') {
+            window.open('https://open.spotify.com', '_blank');
+          } else if (item?.id === 'soundcloud') {
+            window.open('https://soundcloud.com', '_blank');
+          }
           window.dispatchEvent(new CustomEvent('0pod:select'));
           break;
+        }
         case 'menu':
           play('menuButton');
           goBack();
