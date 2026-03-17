@@ -15,60 +15,63 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (!q) return res.status(400).json({ ok: false, error: 'Missing query' });
 
   const allowedSources = sources ? sources.split(',') : ['youtube', 'spotify', 'soundcloud'];
+  const results: any[] = [];
+  const errors: string[] = [];
 
-  try {
-    const results: any[] = [];
-
-    if (allowedSources.includes('youtube')) {
-      try {
-        const ytResult = await searchYouTube(q);
-        results.push({
-          tracks: ytResult.tracks.map((t) => ({
-            id: t.id, source: 'youtube', title: t.title,
-            artist: t.artist, album: t.album, duration: t.duration,
-            artworkUrl: t.artworkUrl,
-          })),
-          albums: [], artists: [], source: 'youtube',
-        });
-      } catch (err) {
-        console.warn('YouTube search failed:', err);
-      }
+  if (allowedSources.includes('youtube')) {
+    try {
+      const ytResult = await searchYouTube(q);
+      results.push({
+        tracks: ytResult.tracks.map((t) => ({
+          id: t.id, source: 'youtube', title: t.title,
+          artist: t.artist, album: t.album, duration: t.duration,
+          artworkUrl: t.artworkUrl,
+        })),
+        albums: [], artists: [], source: 'youtube',
+      });
+    } catch (err: any) {
+      errors.push(`youtube: ${err?.message || 'unknown error'}`);
+      console.error('YouTube search failed:', err);
     }
-
-    if (allowedSources.includes('spotify') && isSpotifyConfigured()) {
-      try {
-        const spResult = await searchSpotify(q);
-        results.push({
-          tracks: spResult.tracks.map((t) => ({
-            id: t.id, source: 'spotify', title: t.title,
-            artist: t.artist, album: t.album, duration: t.duration,
-            artworkUrl: t.artworkUrl,
-          })),
-          albums: [], artists: [], source: 'spotify',
-        });
-      } catch (err) {
-        console.warn('Spotify search failed:', err);
-      }
-    }
-
-    if (allowedSources.includes('soundcloud')) {
-      try {
-        const scResult = await searchSoundCloud(q);
-        results.push({
-          tracks: scResult.tracks.map((t) => ({
-            id: t.id, source: 'soundcloud', title: t.title,
-            artist: t.artist, duration: t.duration,
-            artworkUrl: t.artworkUrl,
-          })),
-          albums: [], artists: [], source: 'soundcloud',
-        });
-      } catch (err) {
-        console.warn('SoundCloud search failed:', err);
-      }
-    }
-
-    return res.status(200).json({ ok: true, data: results });
-  } catch {
-    return res.status(500).json({ ok: false, error: 'Search failed' });
   }
+
+  if (allowedSources.includes('spotify') && isSpotifyConfigured()) {
+    try {
+      const spResult = await searchSpotify(q);
+      results.push({
+        tracks: spResult.tracks.map((t) => ({
+          id: t.id, source: 'spotify', title: t.title,
+          artist: t.artist, album: t.album, duration: t.duration,
+          artworkUrl: t.artworkUrl,
+        })),
+        albums: [], artists: [], source: 'spotify',
+      });
+    } catch (err: any) {
+      errors.push(`spotify: ${err?.message || 'unknown error'}`);
+      console.error('Spotify search failed:', err);
+    }
+  }
+
+  if (allowedSources.includes('soundcloud')) {
+    try {
+      const scResult = await searchSoundCloud(q);
+      results.push({
+        tracks: scResult.tracks.map((t) => ({
+          id: t.id, source: 'soundcloud', title: t.title,
+          artist: t.artist, duration: t.duration,
+          artworkUrl: t.artworkUrl,
+        })),
+        albums: [], artists: [], source: 'soundcloud',
+      });
+    } catch (err: any) {
+      errors.push(`soundcloud: ${err?.message || 'unknown error'}`);
+      console.error('SoundCloud search failed:', err);
+    }
+  }
+
+  return res.status(200).json({
+    ok: true,
+    data: results,
+    ...(errors.length > 0 ? { errors } : {}),
+  });
 }
