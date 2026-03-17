@@ -34,6 +34,16 @@
   min-height: 26px;
 }
 
+.selected {
+  background: var(--ipod-lcd-highlight);
+  color: var(--ipod-lcd-highlight-text);
+}
+
+.selected .trackTitle,
+.selected .trackArtist {
+  color: var(--ipod-lcd-highlight-text);
+}
+
 .trackItem:hover {
   background: rgba(0, 0, 0, 0.03);
 }

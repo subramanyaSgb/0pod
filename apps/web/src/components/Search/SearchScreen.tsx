@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import { usePlayerStore } from '../../stores/playerStore';
 import { useMenuStore } from '../../stores/menuStore';
 import { api } from '../../services/api';
@@ -36,6 +36,13 @@ export function SearchScreen({ sourceFilter }: SearchScreenProps = {}) {
   const { setQueue } = usePlayerStore();
   const { navigate } = useMenuStore();
 
+  const selectedIndexRef = useRef(selectedIndex);
+  selectedIndexRef.current = selectedIndex;
+  const searchedRef = useRef(searched);
+  searchedRef.current = searched;
+  const resultsRef = useRef(results);
+  resultsRef.current = results;
+
   const doSearch = useCallback(async (query: string) => {
     setLoading(true);
     setSearched(true);
@@ -58,7 +65,7 @@ export function SearchScreen({ sourceFilter }: SearchScreenProps = {}) {
       setResults([]);
     }
     setLoading(false);
-  }, []);
+  }, [sourceFilter]);
 
   const playTrack = useCallback((index: number) => {
     if (results.length > 0) {
@@ -66,6 +73,62 @@ export function SearchScreen({ sourceFilter }: SearchScreenProps = {}) {
       navigate('nowPlaying');
     }
   }, [results, setQueue, navigate]);
+
+  // Sync scroll wheel with our local selectedIndex
+  useEffect(() => {
+    const unsub = useMenuStore.subscribe((state, prevState) => {
+      const screen = state.stack[state.stack.length - 1];
+      const prevScreen = prevState.stack[prevState.stack.length - 1];
+
+      // Detect scroll direction from menu store selectedIndex changes
+      if (screen.id === prevScreen.id && screen.selectedIndex !== prevScreen.selectedIndex) {
+        const dir = screen.selectedIndex > prevScreen.selectedIndex ? 1 : -1;
+        setSelectedIndex((prev) => {
+          const maxItems = searchedRef.current ? resultsRef.current.length : QUICK_SEARCHES.length;
+          return Math.max(0, Math.min(maxItems - 1, prev + dir));
+        });
+      }
+    });
+    return unsub;
+  }, []);
+
+  // Listen for center button press (select) to trigger search or play
+  useEffect(() => {
+    const unsub = useMenuStore.subscribe((state, prevState) => {
+      const screen = state.stack[state.stack.length - 1];
+      const prevScreen = prevState.stack[prevState.stack.length - 1];
+
+      // Detect select: stack length increased from our screen
+      // But for search screens, select() on empty items does nothing in menuStore.
+      // We need a different approach — listen for center button via a custom event.
+    });
+    return unsub;
+  }, []);
+
+  // Use a global event to detect center button press for custom screens
+  useEffect(() => {
+    const handler = () => {
+      const screen = useMenuStore.getState().currentScreen();
+      const isSearchScreen = screen.id === 'search' || screen.id.startsWith('search');
+      if (!isSearchScreen) return;
+
+      if (!searchedRef.current) {
+        // Quick search mode - trigger search for selected item
+        const term = QUICK_SEARCHES[selectedIndexRef.current];
+        if (term) doSearch(term);
+      } else {
+        // Results mode - play selected track
+        const tracks = resultsRef.current;
+        if (tracks.length > 0) {
+          setQueue(tracks, selectedIndexRef.current);
+          navigate('nowPlaying');
+        }
+      }
+    };
+
+    window.addEventListener('0pod:select', handler);
+    return () => window.removeEventListener('0pod:select', handler);
+  }, [doSearch, setQueue, navigate]);
 
   if (loading) {
     return (

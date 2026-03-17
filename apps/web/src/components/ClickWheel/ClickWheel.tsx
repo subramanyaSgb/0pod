@@ -52,6 +52,7 @@ export function ClickWheel() {
         case 'center':
           play('menuSelect');
           select();
+          window.dispatchEvent(new CustomEvent('0pod:select'));
           break;
         case 'menu':
           play('menuButton');
