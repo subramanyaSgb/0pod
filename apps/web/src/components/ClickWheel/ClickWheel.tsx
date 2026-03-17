@@ -3,6 +3,7 @@ import { useClickWheel } from '../../hooks/useClickWheel';
 import { useHaptics } from '../../hooks/useHaptics';
 import { useMenuStore } from '../../stores/menuStore';
 import { usePlayerStore } from '../../stores/playerStore';
+import { useLocalFilesStore } from '../../stores/localFilesStore';
 import { useSettingsStore } from '../../stores/settingsStore';
 import type { WheelZone } from '@0pod/shared';
 import styles from './ClickWheel.module.css';
@@ -52,10 +53,15 @@ export function ClickWheel() {
         case 'center': {
           play('menuSelect');
           const item = select();
-          if (item?.id === 'spotify') {
-            window.open('https://open.spotify.com', '_blank');
-          } else if (item?.id === 'soundcloud') {
-            window.open('https://soundcloud.com', '_blank');
+          if (item?.id === 'scanMusic') {
+            useLocalFilesStore.getState().scanDirectory();
+          } else if (item?.id === 'shuffle') {
+            const tracks = useLocalFilesStore.getState().tracks;
+            if (tracks.length > 0) {
+              const shuffled = [...tracks].sort(() => Math.random() - 0.5);
+              usePlayerStore.getState().setQueue(shuffled, 0);
+              useMenuStore.getState().navigate('nowPlaying');
+            }
           }
           window.dispatchEvent(new CustomEvent('0pod:select'));
           break;

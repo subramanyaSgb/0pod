@@ -3,19 +3,15 @@ import type { MenuItem, MenuScreen } from '@0pod/shared';
 const menuItems: Record<string, MenuItem[]> = {
   root: [
     { id: 'music', label: 'Music', action: 'navigate', submenuId: 'music' },
-    { id: 'sources', label: 'Sources', action: 'navigate', submenuId: 'sources' },
     { id: 'nowPlaying', label: 'Now Playing', action: 'navigate', submenuId: 'nowPlaying' },
     { id: 'shuffle', label: 'Shuffle Songs', action: 'execute' },
-    { id: 'downloads', label: 'Downloads', action: 'navigate', submenuId: 'downloadsList' },
     { id: 'settings', label: 'Settings', action: 'navigate', submenuId: 'settings' },
   ],
   music: [
-    { id: 'playlists', label: 'Playlists', action: 'navigate', submenuId: 'placeholder' },
-    { id: 'artists', label: 'Artists', action: 'navigate', submenuId: 'placeholder' },
-    { id: 'albums', label: 'Albums', action: 'navigate', submenuId: 'placeholder' },
-    { id: 'songs', label: 'Songs', action: 'navigate', submenuId: 'placeholder' },
-    { id: 'genres', label: 'Genres', action: 'navigate', submenuId: 'placeholder' },
-    { id: 'search', label: 'Search', action: 'navigate', submenuId: 'search' },
+    { id: 'songs', label: 'Songs', action: 'navigate', submenuId: 'localFiles' },
+    { id: 'artists', label: 'Artists', action: 'navigate', submenuId: 'artistsList' },
+    { id: 'scanMusic', label: 'Scan Music Folder', action: 'execute' },
+    { id: 'addFiles', label: 'Add Files', action: 'navigate', submenuId: 'localFiles' },
   ],
   sources: [
     { id: 'youtube', label: 'YouTube Music', action: 'navigate', submenuId: 'youtubeEmbed' },
@@ -69,6 +65,7 @@ const menuItems: Record<string, MenuItem[]> = {
   ],
   downloadsAll: [],
   localFiles: [],
+  artistsList: [],
   equalizer: [
     { id: 'eq-band-0', label: '60Hz', action: 'execute' },
     { id: 'eq-band-1', label: '230Hz', action: 'execute' },
@@ -97,7 +94,8 @@ const MENU_TITLES: Record<string, string> = {
   downloads: 'Downloads',
   downloadsList: 'Downloads',
   downloadsAll: 'All Downloads',
-  localFiles: 'Local Files',
+  localFiles: 'Songs',
+  artistsList: 'Artists',
   equalizer: 'Equalizer',
 };
 
