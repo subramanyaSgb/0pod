@@ -177,16 +177,8 @@ export function useClickWheel(
       return;
     }
 
-    // Start momentum if on ring
-    if (
-      state.zone === 'ring' ||
-      Math.abs(state.totalAngle) > TAP_THRESHOLD
-    ) {
-      const velocity = state.accumulatedNotches;
-      if (Math.abs(velocity) > MIN_VELOCITY) {
-        startMomentum(velocity);
-      }
-    }
+    // No momentum — stop exactly where the finger lifts
+    state.accumulatedNotches = 0;
   }, [startMomentum]);
 
   useEffect(() => {
