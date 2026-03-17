@@ -3,6 +3,7 @@ import type { MenuItem } from '@0pod/shared';
 import { useMenuStore } from '../../stores/menuStore';
 import { MenuList } from './MenuList';
 import { NowPlaying } from '../NowPlaying/NowPlaying';
+import { SearchScreen } from '../Search/SearchScreen';
 import styles from './MenuScreen.module.css';
 
 interface ScreenState {
@@ -75,6 +76,8 @@ export function MenuScreen() {
         <div key={`${screen.id}-${i}`} className={`${styles.screenWrapper} ${screen.className}`}>
           {screen.id === 'nowPlaying' ? (
             <NowPlaying />
+          ) : screen.id === 'search' ? (
+            <SearchScreen />
           ) : (
             <MenuList items={screen.items} selectedIndex={screen.selectedIndex} />
           )}

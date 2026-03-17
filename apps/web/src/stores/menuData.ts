@@ -15,7 +15,7 @@ const menuItems: Record<string, MenuItem[]> = {
     { id: 'albums', label: 'Albums', action: 'navigate', submenuId: 'placeholder' },
     { id: 'songs', label: 'Songs', action: 'navigate', submenuId: 'placeholder' },
     { id: 'genres', label: 'Genres', action: 'navigate', submenuId: 'placeholder' },
-    { id: 'search', label: 'Search', action: 'navigate', submenuId: 'placeholder' },
+    { id: 'search', label: 'Search', action: 'navigate', submenuId: 'search' },
   ],
   sources: [
     { id: 'youtube', label: 'YouTube Music', action: 'navigate', submenuId: 'comingSoon' },
@@ -44,6 +44,7 @@ const menuItems: Record<string, MenuItem[]> = {
     { id: 'version', label: '0Pod v0.1.0', action: 'execute' },
     { id: 'phase', label: 'Phase 0 — Shell Only', action: 'execute' },
   ],
+  search: [],
   placeholder: [
     { id: 'empty', label: 'No music yet', action: 'execute' },
   ],
@@ -66,6 +67,7 @@ const MENU_TITLES: Record<string, string> = {
   settingsHaptics: 'Haptics',
   settingsDisplay: 'Display',
   settingsAbout: 'About',
+  search: 'Search',
   placeholder: 'Music',
   comingSoon: 'Sources',
   nowPlaying: 'Now Playing',

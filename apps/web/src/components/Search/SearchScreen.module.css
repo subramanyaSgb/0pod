@@ -1,0 +1,57 @@
+.container {
+  flex: 1;
+  overflow: hidden;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 8px;
+  font-size: 13px;
+  color: var(--ipod-lcd-text);
+  height: 22px;
+  cursor: pointer;
+}
+
+.item.selected {
+  background-color: var(--ipod-lcd-highlight);
+  color: var(--ipod-lcd-highlight-text);
+}
+
+.arrow {
+  font-size: 10px;
+  opacity: 0.6;
+}
+
+.trackInfo {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  flex: 1;
+}
+
+.trackTitle {
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.trackArtist {
+  font-size: 10px;
+  opacity: 0.6;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 12px;
+  color: var(--ipod-lcd-text);
+  opacity: 0.5;
+}
