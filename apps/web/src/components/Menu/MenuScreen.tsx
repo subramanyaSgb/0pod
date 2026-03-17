@@ -80,6 +80,12 @@ export function MenuScreen() {
             <NowPlaying />
           ) : screen.id === 'search' ? (
             <SearchScreen />
+          ) : screen.id === 'searchYoutube' ? (
+            <SearchScreen sourceFilter="youtube" />
+          ) : screen.id === 'searchSpotify' ? (
+            <SearchScreen sourceFilter="spotify" />
+          ) : screen.id === 'searchSoundcloud' ? (
+            <SearchScreen sourceFilter="soundcloud" />
           ) : screen.id === 'localFiles' ? (
             <LocalFilesScreen />
           ) : screen.id === 'equalizer' ? (

@@ -19,8 +19,10 @@ import {
 export async function musicRoutes(server: FastifyInstance) {
   // Search
   server.get('/api/search', async (request, reply) => {
-    const { q } = request.query as { q?: string; sources?: string };
+    const { q, sources } = request.query as { q?: string; sources?: string };
     if (!q) return reply.status(400).send({ ok: false, error: 'Missing query' });
+
+    const allowedSources = sources ? sources.split(',') : ['youtube', 'spotify', 'soundcloud'];
 
     try {
       const results: {
@@ -39,24 +41,26 @@ export async function musicRoutes(server: FastifyInstance) {
       }[] = [];
 
       // YouTube search
-      const ytResult = await searchYouTube(q);
-      results.push({
-        tracks: ytResult.tracks.map((t) => ({
-          id: t.id,
-          source: 'youtube' as const,
-          title: t.title,
-          artist: t.artist,
-          album: t.album,
-          duration: t.duration,
-          artworkUrl: t.artworkUrl,
-        })),
-        albums: [],
-        artists: [],
-        source: 'youtube',
-      });
+      if (allowedSources.includes('youtube')) {
+        const ytResult = await searchYouTube(q);
+        results.push({
+          tracks: ytResult.tracks.map((t) => ({
+            id: t.id,
+            source: 'youtube' as const,
+            title: t.title,
+            artist: t.artist,
+            album: t.album,
+            duration: t.duration,
+            artworkUrl: t.artworkUrl,
+          })),
+          albums: [],
+          artists: [],
+          source: 'youtube',
+        });
+      }
 
       // Spotify search (if configured)
-      if (isSpotifyConfigured()) {
+      if (allowedSources.includes('spotify') && isSpotifyConfigured()) {
         try {
           const spResult = await searchSpotify(q);
           results.push({
@@ -79,23 +83,25 @@ export async function musicRoutes(server: FastifyInstance) {
       }
 
       // SoundCloud search (always available — auto-discovers client_id)
-      try {
-        const scResult = await searchSoundCloud(q);
-        results.push({
-          tracks: scResult.tracks.map((t) => ({
-            id: t.id,
-            source: 'soundcloud' as const,
-            title: t.title,
-            artist: t.artist,
-            duration: t.duration,
-            artworkUrl: t.artworkUrl,
-          })),
-          albums: [],
-          artists: [],
-          source: 'soundcloud',
-        });
-      } catch (err) {
-        server.log.warn('SoundCloud search failed, skipping: %s', err);
+      if (allowedSources.includes('soundcloud')) {
+        try {
+          const scResult = await searchSoundCloud(q);
+          results.push({
+            tracks: scResult.tracks.map((t) => ({
+              id: t.id,
+              source: 'soundcloud' as const,
+              title: t.title,
+              artist: t.artist,
+              duration: t.duration,
+              artworkUrl: t.artworkUrl,
+            })),
+            albums: [],
+            artists: [],
+            source: 'soundcloud',
+          });
+        } catch (err) {
+          server.log.warn('SoundCloud search failed, skipping: %s', err);
+        }
       }
 
       return { ok: true, data: results };

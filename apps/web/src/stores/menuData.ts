@@ -18,9 +18,9 @@ const menuItems: Record<string, MenuItem[]> = {
     { id: 'search', label: 'Search', action: 'navigate', submenuId: 'search' },
   ],
   sources: [
-    { id: 'youtube', label: 'YouTube Music', action: 'navigate', submenuId: 'comingSoon' },
-    { id: 'spotify', label: 'Spotify', action: 'navigate', submenuId: 'comingSoon' },
-    { id: 'soundcloud', label: 'SoundCloud', action: 'navigate', submenuId: 'comingSoon' },
+    { id: 'youtube', label: 'YouTube Music', action: 'navigate', submenuId: 'searchYoutube' },
+    { id: 'spotify', label: 'Spotify', action: 'navigate', submenuId: 'searchSpotify' },
+    { id: 'soundcloud', label: 'SoundCloud', action: 'navigate', submenuId: 'searchSoundcloud' },
     { id: 'localFiles', label: 'Local Files', action: 'navigate', submenuId: 'localFiles' },
   ],
   settings: [
@@ -46,6 +46,9 @@ const menuItems: Record<string, MenuItem[]> = {
     { id: 'phase', label: 'Phase 0 — Shell Only', action: 'execute' },
   ],
   search: [],
+  searchYoutube: [],
+  searchSpotify: [],
+  searchSoundcloud: [],
   placeholder: [
     { id: 'empty', label: 'No music yet', action: 'execute' },
   ],
@@ -85,6 +88,9 @@ const MENU_TITLES: Record<string, string> = {
   search: 'Search',
   placeholder: 'Music',
   comingSoon: 'Sources',
+  searchYoutube: 'YouTube Music',
+  searchSpotify: 'Spotify',
+  searchSoundcloud: 'SoundCloud',
   nowPlaying: 'Now Playing',
   downloads: 'Downloads',
   downloadsList: 'Downloads',

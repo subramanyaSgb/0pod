@@ -23,7 +23,11 @@ const SOURCE_LABELS: Record<string, string> = {
   local: 'LC',
 };
 
-export function SearchScreen() {
+interface SearchScreenProps {
+  sourceFilter?: string;
+}
+
+export function SearchScreen({ sourceFilter }: SearchScreenProps = {}) {
   const [results, setResults] = useState<Track[]>([]);
   const [loading, setLoading] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -37,7 +41,7 @@ export function SearchScreen() {
     setSearched(true);
     setSearchQuery(query);
     try {
-      const data = await api.search(query);
+      const data = await api.search(query, sourceFilter);
       // Flatten results from all sources
       const tracks: Track[] = [];
       if (Array.isArray(data)) {
