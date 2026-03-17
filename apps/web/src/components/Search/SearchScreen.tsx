@@ -16,20 +16,38 @@ const QUICK_SEARCHES = [
   'R&B Soul',
 ];
 
+const SOURCE_LABELS: Record<string, string> = {
+  youtube: 'YT',
+  spotify: 'SP',
+  soundcloud: 'SC',
+  local: 'LC',
+};
+
 export function SearchScreen() {
   const [results, setResults] = useState<Track[]>([]);
   const [loading, setLoading] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [searched, setSearched] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
   const { setQueue } = usePlayerStore();
   const { navigate } = useMenuStore();
 
   const doSearch = useCallback(async (query: string) => {
     setLoading(true);
     setSearched(true);
+    setSearchQuery(query);
     try {
       const data = await api.search(query);
-      const tracks = data.flatMap((r: SearchResultItem) => r.tracks || []);
+      // Flatten results from all sources
+      const tracks: Track[] = [];
+      if (Array.isArray(data)) {
+        for (const sourceResult of data) {
+          const source = (sourceResult as any).source || 'youtube';
+          for (const track of (sourceResult as any).tracks || []) {
+            tracks.push({ ...track, source });
+          }
+        }
+      }
       setResults(tracks);
       setSelectedIndex(0);
     } catch {
@@ -46,7 +64,11 @@ export function SearchScreen() {
   }, [results, setQueue, navigate]);
 
   if (loading) {
-    return <div className={styles.container}><div className={styles.loading}>Searching...</div></div>;
+    return (
+      <div className={styles.container}>
+        <div className={styles.loading}>Searching...</div>
+      </div>
+    );
   }
 
   if (!searched) {
@@ -67,27 +89,38 @@ export function SearchScreen() {
   }
 
   if (results.length === 0) {
-    return <div className={styles.container}><div className={styles.loading}>No results</div></div>;
+    return (
+      <div className={styles.container}>
+        <div className={styles.loading}>No results for &ldquo;{searchQuery}&rdquo;</div>
+      </div>
+    );
   }
 
   return (
     <div className={styles.container}>
+      <div className={styles.resultHeader}>
+        {results.length} results for &ldquo;{searchQuery}&rdquo;
+      </div>
       {results.map((track, i) => (
         <div
-          key={track.id}
-          className={`${styles.item} ${i === selectedIndex ? styles.selected : ''}`}
+          key={`${track.source}-${track.id}`}
+          className={`${styles.trackItem} ${i === selectedIndex ? styles.selected : ''}`}
           onClick={() => playTrack(i)}
         >
+          <div className={styles.trackLeft}>
+            <span className={styles.sourceBadge}>
+              {SOURCE_LABELS[track.source] || track.source}
+            </span>
+          </div>
           <div className={styles.trackInfo}>
-            <span className={styles.trackTitle}>{track.title}</span>
-            <span className={styles.trackArtist}>{track.artist}</span>
+            <div className={styles.trackTitle}>{track.title}</div>
+            <div className={styles.trackArtist}>{track.artist}</div>
+          </div>
+          <div className={styles.trackDuration}>
+            {track.duration > 0 ? `${Math.floor(track.duration / 60)}:${(track.duration % 60).toString().padStart(2, '0')}` : ''}
           </div>
         </div>
       ))}
     </div>
   );
-}
-
-interface SearchResultItem {
-  tracks?: Track[];
 }
